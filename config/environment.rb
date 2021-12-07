@@ -1,4 +1,4 @@
 require_relative '../lib/simpler'
-require 'pry'
+# require 'pry'
 
 Simpler.application.bootstrap!

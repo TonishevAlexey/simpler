@@ -21,24 +21,15 @@ module Simpler
       def parse_string_path(path)
         router_path = path_parts(@path)
         request_path = path_parts(path)
-        return false if request_path.size != router_path.size
-        new_params(router_path, request_path)
-      end
-
-      def new_params(route, path)
-        route.each_with_index do |part, index|
-          if part.include?(':')
-            add_params(part, path[index])
-          else
-            false
-          end
+        if request_path.size != router_path.size
+          false
+        elsif request_path == router_path
+          true
+        elsif router_path.to_s.include?(':')
+          true
+        else
+          false
         end
-      end
-
-      def add_params(parameter, value)
-        parameter = parameter.split(':')[1].to_sym
-
-        @params[parameter] = value.to_i
       end
 
       def path_parts(path)
